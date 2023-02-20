@@ -14,7 +14,7 @@ def create_genre():
     request_body = validate_request_body(Genre, request.get_json())
     new_genre = Genre.from_dict(request_body)
     
-    existed_genre = Genre.query.filter_by(id=new_genre.id)
+    existed_genre = Genre.query.filter_by(id=new_genre.id).all()
     if existed_genre:
         return make_response(jsonify(f"The genre already exists."), 400)
 
