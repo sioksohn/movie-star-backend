@@ -13,7 +13,7 @@ class Watchlist(db.Model):
 
     def to_dict(self):
         watchlist_dict = {
-            "watchlist_id": self.id,
+            "id": self.id,
             "viewer_id": self.viewer_id,
             "content_id": self.content_id,
             "viewer_rate": self.viewer_rate,
