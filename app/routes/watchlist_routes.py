@@ -38,6 +38,25 @@ def delete_one_watchlist(watchlist_id):
     
     return make_response(jsonify(watchlist.to_dict()), 200)
 
+@watchlist_bp.route("/<watchlist_id>",methods=["PUT"])
+def update_one_watchlist(watchlist_id):
+    watchlist_info = validate_model(Watchlist, watchlist_id)
+    request_body = validate_request_body(Watchlist, request.get_json())
+
+    watchlist_info.viewer_id= request_body["viewer_id"],
+    watchlist_info.content_id= request_body["content_id"],
+    watchlist_info.viewer_rate= request_body["viewer_rate"],
+    watchlist_info.viewer_comment= request_body["viewer_comment"]
+
+    db.session.commit()
+
+    return make_response(jsonify(viewer_info.to_dict()), 200)
+
+
+
+
+
+
 @watchlist_bp.route("<viewer_id>/add", methods=["POST"]) # request = {viewer_id, content, viewer_rate, viewer_comment}
 def add_one_content_to_watchlist_of_loggined_viewer(viewer_id):
     request_body = request.get_json()
