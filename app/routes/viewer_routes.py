@@ -80,10 +80,11 @@ def get_current_watchlist(viewer_id):
     watched_contents = []
     if filtered_id:
         content_genres = ContentGenre.query.filter_by(genre_id=filtered_id).all()
-        print(content_genres)
-        for content_genre in content_genres:         
+        for content_genre in content_genres: 
             content = content_query.get(content_genre.content_id)
-            watched_contents.append(content.to_dict())
+            for watch in content.watchlists:
+                if watch.viewer_id == viewer.id:
+                    watched_contents.append(content.to_dict())
     else:
         for watchlist in viewer.watchlists:
             content = content_query.filter_by(id=watchlist.content_id).all()[0]
