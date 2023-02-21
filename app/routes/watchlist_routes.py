@@ -50,10 +50,7 @@ def update_one_watchlist(watchlist_id):
 
     db.session.commit()
 
-    return make_response(jsonify(viewer_info.to_dict()), 200)
-
-
-
+    return make_response(jsonify(watchlist_info.to_dict()), 200)
 
 
 
