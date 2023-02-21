@@ -74,10 +74,19 @@ def delete_one_viewer(viewer_id):
 def get_current_watchlist(viewer_id):
     viewer = validate_model(Viewer, viewer_id)
     content_query = Content.query
+    #filter by genre
+    filtered_id = request.args.get("filter")
 
     watched_contents = []
-    for watchlist in viewer.watchlists:
-        content = content_query.filter_by(id =watchlist.content_id).all()[0]
-        watched_contents.append(content.to_dict())
+    if filtered_id:
+        content_genres = ContentGenre.query.filter_by(genre_id=filtered_id).all()
+        
+        for content_genre in content_genres:         
+            content = content_query.get(content_genre.content_id)
+    else:
+        for watchlist in viewer.watchlists:
+            content = content_query.filter_by(id=watchlist.content_id).all()[0]
+
+    watched_contents.append(content.to_dict())
         
     return jsonify(watched_contents)

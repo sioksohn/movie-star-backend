@@ -52,8 +52,6 @@ def update_one_watchlist(watchlist_id):
 
     return make_response(jsonify(watchlist_info.to_dict()), 200)
 
-
-
 @watchlist_bp.route("<viewer_id>/add", methods=["POST"]) # request = {viewer_id, content, viewer_rate, viewer_comment}
 def add_one_content_to_watchlist_of_loggined_viewer(viewer_id):
     request_body = request.get_json()
